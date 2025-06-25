@@ -111,7 +111,7 @@ const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
 								initial={{ scale: 0 }}
 								animate={{
 									scale: index < punches % 10 ? 1 : 0.5,
-									backgroundColor: index < punches % 10 ? '#10B981' : '#374151'
+									backgroundColor: index < punches % 10 ? '#0EA5E9' : '#1E293B'
 								}}
 								transition={{
 									type: 'spring',

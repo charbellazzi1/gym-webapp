@@ -34,6 +34,14 @@ const createDateFromString = (dateString: string, timeString: string): Date => {
 	return date;
 }
 
+// Utility function to create consistent date keys without timezone issues
+const createDateKey = (date: Date): string => {
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	return `${year}-${month}-${day}`;
+}
+
 interface CalendarEvent {
 	id: number
 	title: string
@@ -125,29 +133,13 @@ const MobileAgendaView = ({ events, onEventClick }: any) => {
 		</div>
 	)
 }
-const MobileWeekView = ({ events, onEventClick }: any) => {
-	const [clickedDay, setClickedDay] = useState(() => {
-		// Default to today if there are events today, else first event day
-		const today = new Date()
-		const todayEvents = events.filter((e: any) => {
-			const d = new Date(e.start)
-			return d.getFullYear() === today.getFullYear() && d.getMonth() === today.getMonth() && d.getDate() === today.getDate()
-		})
-		if (todayEvents.length > 0) return today
-		if (events.length > 0) return new Date(events[0].start)
-		return today
-	});
-	const [selectedDay, setSelectedDay] = useState(() => {
-		const d = new Date(clickedDay);
-		d.setDate(d.getDate() + 1);
-		return d;
-	});
+const MobileWeekView = ({ events, onEventClick, selectedDay, onDaySelect }: any) => {
+	const [clickedDay, setClickedDay] = useState(selectedDay);
 
+	// Update clickedDay when selectedDay prop changes
 	useEffect(() => {
-		const d = new Date(clickedDay);
-		d.setDate(d.getDate() + 1);
-		setSelectedDay(d);
-	}, [clickedDay]);
+		setClickedDay(selectedDay);
+	}, [selectedDay]);
 
 	// Use clickedDay for week strip calculation
 	const startOfWeek = (date: Date) => {
@@ -165,7 +157,7 @@ const MobileWeekView = ({ events, onEventClick }: any) => {
 	const weekStart = startOfWeek(clickedDay)
 	const weekEnd = endOfWeek(clickedDay)
 	const days = []
-	for (let d = new Date(weekStart); d <= weekEnd; d.setDate(d.getDate() + 1)) {
+	for (let d = new Date(weekStart); d <= weekEnd; d.setDate(d.getDate()+1 )) {
 		days.push(new Date(d))
 	}
 
@@ -173,16 +165,18 @@ const MobileWeekView = ({ events, onEventClick }: any) => {
 	const eventsByDay: Record<string, any[]> = {}
 	events.forEach((event: any) => {
 		const d = new Date(event.start)
-		const key = d.toISOString().slice(0, 10)
+		const key = createDateKey(d)
 		if (!eventsByDay[key]) eventsByDay[key] = []
 		eventsByDay[key].push(event)
 	})
 
-	const selectedDayKey = selectedDay.toISOString().slice(0, 10)
+	// Use the same selectedDay for consistency with single day view
+	const selectedDayKey = createDateKey(selectedDay)
 	const agendaEvents = eventsByDay[selectedDayKey] || []
 
 	const handleDaySelect = (day: Date) => {
 		setClickedDay(day); // for UI highlight
+		onDaySelect(day); // update the main component's selectedDay
 	}
 
 	return (
@@ -190,7 +184,7 @@ const MobileWeekView = ({ events, onEventClick }: any) => {
 			{/* Horizontal scrollable week strip */}
 			<div className="sticky top-0 z-20 bg-gray-900 py-2 px-2 border-b border-green-500 flex overflow-x-auto gap-2">
 				{days.map((day, idx) => {
-					const key = day.toISOString().slice(0, 10)
+					const key = createDateKey(day)
 					const isSelected = day.toDateString() === clickedDay.toDateString();
 					const hasEvents = (eventsByDay[key] || []).length > 0
 					return (
@@ -207,25 +201,18 @@ const MobileWeekView = ({ events, onEventClick }: any) => {
 					)
 				})}
 			</div>
-			{/* Agenda for selected day */}
+			{/* Agenda for selected day - same as single day view */}
 			<MobileAgendaView events={agendaEvents} onEventClick={onEventClick} />
 		</div>
 	)
 }
 const MobileMonthView = ({ events, onEventClick, onDaySelect, selectedDay }: any) => {
 	const [clickedDay, setClickedDay] = useState(selectedDay);
-	const [agendaDay, setAgendaDay] = useState(() => {
-		const d = new Date(selectedDay);
-		d.setDate(d.getDate() + 1);
-		return d;
-	});
 
+	// Update clickedDay when selectedDay prop changes
 	useEffect(() => {
-		const d = new Date(clickedDay);
-		d.setDate(d.getDate() + 1);
-		setAgendaDay(d);
-		onDaySelect(d);
-	}, [clickedDay]);
+		setClickedDay(selectedDay);
+	}, [selectedDay]);
 
 	// Get the first day of the month
 	const monthStart = new Date(selectedDay.getFullYear(), selectedDay.getMonth(), 1)
@@ -249,16 +236,18 @@ const MobileMonthView = ({ events, onEventClick, onDaySelect, selectedDay }: any
 	const eventsByDay: Record<string, any[]> = {}
 	events.forEach((event: any) => {
 		const d = new Date(event.start)
-		const key = d.toISOString().slice(0, 10)
+		const key = createDateKey(d)
 		if (!eventsByDay[key]) eventsByDay[key] = []
 		eventsByDay[key].push(event)
 	})
 
-	const selectedDayKey = agendaDay.toISOString().slice(0, 10)
+	// Use the same selectedDay for consistency with single day view
+	const selectedDayKey = createDateKey(selectedDay)
 	const agendaEvents = eventsByDay[selectedDayKey] || []
 
 	const handleDaySelect = (day: Date) => {
 		setClickedDay(day); // for UI highlight
+		onDaySelect(day); // update the main component's selectedDay
 	}
 
 	const handleMonthChange = (direction: 'prev' | 'next') => {
@@ -306,7 +295,7 @@ const MobileMonthView = ({ events, onEventClick, onDaySelect, selectedDay }: any
 				</div>
 				<div className="grid grid-cols-7 gap-1">
 					{days.map((day, idx) => {
-						const key = day.toISOString().slice(0, 10)
+						const key = createDateKey(day)
 						const isCurrentMonth = day.getMonth() === selectedDay.getMonth()
 						const isSelected = day.toDateString() === clickedDay.toDateString();
 						const hasEvents = (eventsByDay[key] || []).length > 0
@@ -335,7 +324,7 @@ const MobileMonthView = ({ events, onEventClick, onDaySelect, selectedDay }: any
 					})}
 				</div>
 			</div>
-			{/* Agenda for selected day */}
+			{/* Agenda for selected day - same as single day view */}
 			<MobileAgendaView events={agendaEvents} onEventClick={onEventClick} />
 		</div>
 	)
@@ -629,6 +618,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 					<MobileWeekView
 						events={filteredEvents}
 						onEventClick={handleMobileEventClick}
+						selectedDay={mobileSelectedDay}
+						onDaySelect={setMobileSelectedDay}
 					/>
 				)}
 				{view === Views.MONTH && (
@@ -895,7 +886,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 			{/* Floating Today Button for Mobile */}
 			{isMobile && (
 				<button
-					onClick={() => setDate(new Date())}
+					onClick={() => {
+						const today = new Date();
+						setDate(today);
+						setMobileSelectedDay(today);
+					}}
 					className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg p-4 flex items-center justify-center transition-all duration-300"
 					style={{ boxShadow: '0 4px 16px rgba(16,185,129,0.3)' }}
 					aria-label="Go to Today"

@@ -11,7 +11,7 @@ const CoachSelection = ({
 	if (isLoading) {
 		return (
 			<div className='flex justify-center items-center h-40'>
-				<RotateLoader color={'#4ADE80'} loading={true} size={20} />
+				<RotateLoader color={'#7DD3FC'} loading={true} size={20} />
 			</div>
 		)
 	}

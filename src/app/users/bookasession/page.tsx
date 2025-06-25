@@ -446,7 +446,7 @@ export default function Example() {
 					duration: 5000, // Show for longer
 					icon: '🎉',
 					style: {
-						background: '#10B981', // Green background
+						background: '#0EA5E9', // Blue background
 						color: 'white',
 						fontWeight: 'bold'
 					}
@@ -599,7 +599,7 @@ export default function Example() {
 	if (isLoading) {
 		return (
 			<div className='min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center'>
-				<RingLoader color={'#10B981'} size={60} />
+				<RingLoader color={'#0EA5E9'} size={60} />
 			</div>
 		)
 	}
@@ -661,11 +661,11 @@ export default function Example() {
 							</h2>
 							{activitiesLoading ? (
 								<div className='flex items-center justify-center'>
-									<RotateLoader
-										color={'#4ADE80'}
-										loading={activitiesLoading}
-										size={20}
-									/>
+																	<RotateLoader
+									color={'#7DD3FC'}
+									loading={activitiesLoading}
+									size={20}
+								/>
 								</div>
 							) : (
 								<ActivitySelection
@@ -693,11 +693,11 @@ export default function Example() {
 								</h2>
 								{coachesLoading ? (
 									<div className='flex items-center justify-center'>
-										<RotateLoader
-											color={'#4ADE80'}
-											loading={coachesLoading}
-											size={20}
-										/>
+																			<RotateLoader
+										color={'#7DD3FC'}
+										loading={coachesLoading}
+										size={20}
+									/>
 									</div>
 								) : (
 									<CoachSelection

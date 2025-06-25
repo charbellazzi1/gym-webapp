@@ -115,7 +115,7 @@ interface Session {
 const LoadingOverlay = () => (
 	<div className='fixed     inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50'>
 		<div className='p-5 mx-auto text-center flex flex-col justify-center items-center rounded-lg'>
-			<RingLoader color={'#10B981'} size={70} />
+							<RingLoader color={'#0EA5E9'} size={70} />
 			<p className='mt-4 text-green-400 text-xl'>Cancelling reservation...</p>
 		</div>
 	</div>
@@ -552,7 +552,7 @@ export default function Dashboard() {
 						duration: 5000, // Show for longer
 						icon: '🎉',
 						style: {
-							background: '#10B981', // Green background
+							background: '#0EA5E9', // Blue background
 							color: 'white',
 							fontWeight: 'bold'
 						}
@@ -806,7 +806,7 @@ export default function Dashboard() {
 	if (!isLoaded || !isSignedIn) {
 		return (
 			<div className='min-h-screen    flex items-center justify-center bg-gray-800'>
-				<RingLoader color={'#10B981'} size={130} />
+				<RingLoader color={'#0EA5E9'} size={130} />
 			</div>
 		)
 	}
@@ -814,7 +814,7 @@ export default function Dashboard() {
 	if (isLoading) {
 		return (
 			<div className='min-h-screen     flex items-center justify-center bg-gray-800'>
-				<RingLoader color={'#10B981'} size={130} />
+				<RingLoader color={'#0EA5E9'} size={130} />
 			</div>
 		)
 	}
@@ -822,7 +822,7 @@ export default function Dashboard() {
 	if (userInfoVerificationLoading) {
 		return (
 			<div className='min-h-screen    flex items-center justify-center bg-gray-800'>
-				<RingLoader color={'#10B981'} size={130} />
+				<RingLoader color={'#0EA5E9'} size={130} />
 			</div>
 		)
 	}
@@ -1082,7 +1082,7 @@ export default function Dashboard() {
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
 								className='flex justify-center items-center h-64'>
-								<RingLoader color={'#10B981'} size={100} />
+								<RingLoader color={'#0EA5E9'} size={100} />
 							</motion.div>
 						) : (
 							<motion.div
@@ -1431,7 +1431,7 @@ export default function Dashboard() {
 																			timeZone='Asia/Beirut'
 																			buttonStyle='default'
 																			styleLight='--btn-background: #ffffff; --btn-text: #000; --btn-shadow: none;'
-																			styleDark='--btn-background: #10B981; --btn-text: #000; --btn-shadow: none;'
+																			styleDark='--btn-background: #0EA5E9; --btn-text: #000; --btn-shadow: none;'
 																			size='3'
 																			inline
 																		/>

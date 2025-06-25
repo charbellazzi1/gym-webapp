@@ -270,7 +270,7 @@ const RescheduleModal: React.FC<RescheduleModalProps> = ({
 							<div className='bg-gray-800/50 p-6 rounded-2xl border border-green-500/10 shadow-lg min-h-[300px]'>
 								{loading ? (
 									<div className='flex justify-center items-center h-full'>
-										<RingLoader color='#10B981' size={40} />
+										<RingLoader color='#0EA5E9' size={40} />
 									</div>
 								) : error ? (
 									<p className='text-red-400 text-center flex items-center justify-center h-full'>
@@ -355,22 +355,22 @@ const RescheduleModal: React.FC<RescheduleModalProps> = ({
       transition: all 0.2s !important;
     }
     .react-datepicker__day--highlighted {
-      background-color: rgba(16, 185, 129, 0.2) !important;
-      color: #10B981 !important;
+      background-color: rgba(14, 165, 233, 0.2) !important;
+      color: #0EA5E9 !important;
     }
     .react-datepicker__day--selected {
-      background-color: #10B981 !important;
+      background-color: #0EA5E9 !important;
       color: white !important;
     }
     .react-datepicker__day:hover {
-      background-color: rgba(16, 185, 129, 0.4) !important;
+      background-color: rgba(14, 165, 233, 0.4) !important;
     }
     .react-datepicker__day-name {
-      color: #10B981 !important;
+      color: #0EA5E9 !important;
       font-weight: 500 !important;
     }
     .react-datepicker__current-month {
-      color: #10B981 !important;
+      color: #0EA5E9 !important;
       font-weight: 600 !important;
       margin-bottom: 0.5rem !important;
     }

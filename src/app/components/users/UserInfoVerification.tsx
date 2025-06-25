@@ -306,8 +306,8 @@ const UserInfoVerification: React.FC<UserInfoVerificationProps> = ({
   }
 
   .custom-calendar {
-    background-color: #353b35 !important; /* gray-800 */
-    border: 2px solid #36783a !important; /* green-400 */
+    				background-color: #1E293B !important; /* gray-800 */
+				border: 2px solid #7DD3FC !important; /* green-400 */
     border-radius: 1rem !important;
     font-family: inherit !important;
     overflow: hidden !important;

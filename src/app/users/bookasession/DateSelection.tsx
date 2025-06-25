@@ -120,10 +120,10 @@ const DateSelection = ({
 
 			<style jsx global>{`
         .calendar-wrapper {
-          --highlight-primary: #10B981;
-          --highlight-secondary: #3B82F6;
+          			--highlight-primary: #0EA5E9;
+			--highlight-secondary: #7DD3FC;
           --highlight-text: #ffffff;
-          --background-dark: #1F2937;
+          			--background-dark: #0F172A;
           --text-primary: #E5E7EB;
         }
 
@@ -178,7 +178,7 @@ const DateSelection = ({
         }
 
         .react-datepicker__day--disabled {
-          color: #4B5563 !important;
+          			color: #334155 !important;
           cursor: not-allowed !important;
           opacity: 0.5 !important;
         }
@@ -189,7 +189,7 @@ const DateSelection = ({
         }
 
         .react-datepicker__day-name {
-          color: #9CA3AF !important;
+          			color: #94A3B8 !important;
           width: 3rem !important;
           line-height: 3rem !important;
           margin: 0.2rem !important;

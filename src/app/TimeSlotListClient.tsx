@@ -505,7 +505,7 @@ export default function TimeSlotListClient({
 
 			{isLoading ? (
 				<div className='flex justify-center items-center h-64'>
-					<RotateLoader color={'#4ADE80'} loading={true} size={15} />
+					<RotateLoader color={'#7DD3FC'} loading={true} size={15} />
 				</div>
 			) : timeSlots.length === 0 ? (
 				<div className='text-center py-10'>
